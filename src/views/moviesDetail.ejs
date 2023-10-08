@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= movie.title %> </title>
-    <link rel='stylesheet' href='/css/style.css' />
 
-</head>
+<%-include('./partials/head.ejs',{viewTitle: movie.title})%>
+
 <body>
     <figure>
         <img src="/img/logo-DH.png" alt="Logo Digital House">
@@ -19,7 +15,9 @@
     <p>RELEASE DATE: <%= movie.release_date %> </p>
     <br>
     <section>
-        <!--Aquí debe colocar los botones de Modificar - Borrar y Listado de Películas-->
+        <a href="/movies/edit/<%=movie.id%>"><button type="button" class="btn btn-success">Modificar <i class="fa-regular fa-pen-to-square"></i></button></a>
+        <a href="/movies/delete/<%=movie.id%>"><button type="button" class="btn btn-danger">Borrar <i class="fa-solid fa-trash-can"></i></button></a>
+        <a href="/movies"><button type="button" class="btn btn-secondary">Listado de películas <i class="fa-solid fa-film"></i></button></a>
     </section>
 
 </body>

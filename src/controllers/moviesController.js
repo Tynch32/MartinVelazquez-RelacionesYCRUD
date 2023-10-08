@@ -3,16 +3,6 @@ const db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
 
-
-//Aqui tienen una forma de llamar a cada uno de los modelos
-// const {Movies,Genres,Actor} = require('../database/models');
-
-//Aquí tienen otra forma de llamar a los modelos creados
-const Movies = db.Movie;
-const Genres = db.Genre;
-const Actors = db.Actor;
-
-
 const moviesController = {
     'list': (req, res) => {
         db.Movie.findAll()
@@ -50,15 +40,30 @@ const moviesController = {
                 res.render('recommendedMovies.ejs', {movies});
             });
     },
-    //Aqui dispongo las rutas para trabajar con el CRUD
     add: function (req, res) {
-        
+        db.Genre.findAll({
+            order:['name']
+        })
+        .then(allGenres=>{
+                return res.render('moviesAdd',{allGenres})
+        })
+        .catch(error=>console.log(error))
     },
     create: function (req,res) {
-
+        const {title,rating,awards,release_date,length,genre_id} = req.body;
+        db.Movie.create({
+            title:title.trim(),
+            rating,
+            awards,
+            release_date,
+            length,
+            genre_id,
+        }).then(()=>{
+            return res.redirect("/movies");
+        }).catch((error)=>console.log(error));
     },
     edit: function(req,res) {
-
+        
     },
     update: function (req,res) {
 

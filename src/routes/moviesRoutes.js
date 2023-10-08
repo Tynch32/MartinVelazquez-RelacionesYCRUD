@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const moviesController = require('../controllers/moviesController');
+const {list,new: newest, recomended,delete:remove,create,add,detail,destroy,edit,update} = require('../controllers/moviesController');
 
-router.get('/movies', moviesController.list);
-router.get('/movies/new', moviesController.new);
-router.get('/movies/recommended', moviesController.recomended);
-router.get('/movies/detail/:id', moviesController.detail);
+router.get('/movies', list);
+router.get('/movies/new', newest);
+router.get('/movies/recommended', recomended);
+router.get('/movies/detail/:id', detail);
 //Rutas exigidas para la creación del CRUD
-//router.get('/movies/add', moviesController.add);
-//router.post('/movies/create', moviesController.create);
-//router.get('/movies/edit/:id', moviesController.edit);
-//router.post('/movies/update/:id', moviesController.update);
-//router.get('/movies/delete/:id', moviesController.delete);
-//router.post('/movies/delete/:id', moviesController.destroy);
+router.get('/movies/add', add);
+router.post('/movies/create', create);
+router.get('/movies/edit/:id', edit);
+router.post('/movies/update/:id', update);
+router.get('/movies/delete/:id', remove);
+router.post('/movies/delete/:id', destroy);
 
 module.exports = router;
