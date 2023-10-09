@@ -1,7 +1,9 @@
 const path = require('path');
 const db = require('../database/models');
 const sequelize = db.sequelize;
-const { Op } = require("sequelize");
+const { Op, DATE, DATEONLY } = require("sequelize");
+const { stringify } = require('querystring');
+const moment = require('moment');
 
 const moviesController = {
     list: (req, res) => {
@@ -13,7 +15,7 @@ const moviesController = {
     detail: (req, res) => {
         db.Movie.findByPk(req.params.id)
             .then(movie => {
-                res.render('moviesDetail.ejs', {movie});
+                res.render('moviesDetail.ejs', {movie, moment});
             });
     },
     new: (req, res) => {
@@ -63,7 +65,17 @@ const moviesController = {
         }).catch((error)=>console.log(error));
     },
     edit: function(req,res) {
-        
+        const allGenres = db.Genre.findAll({
+            order:["name"]
+        });
+        const Movie = db.Movie.findByPk(req.params.id);
+
+        Promise.all([allGenres,Movie])
+            .then(([allGenres,Movie])=>{
+
+                return res.render('moviesEdit',{allGenres,Movie});
+        })
+        .catch(error=>console.log(error))
     },
     update: function (req,res) {
 

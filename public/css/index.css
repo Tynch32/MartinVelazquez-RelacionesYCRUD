@@ -7,3 +7,8 @@
     right: 10px;
     z-index: 1000;
 }
+.moviesList_Items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

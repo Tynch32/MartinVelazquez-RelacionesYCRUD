@@ -27,7 +27,9 @@
             <ul class="list-group list-group-flush">
             <% for( let i=0; i < movies.length; i++ ) { %>
                     <a href="/movies/detail/<%= movies[i].id %>" class="list-group-item list-group-item-action">
-                        <%= movies[i].title %>
+                        <div class="moviesList_Items">
+                            <div><%= movies[i].title %></div> <i class="fa-solid fa-circle-info"></i>
+                        </div>
                     </a>
             <% } %>
             </ul>

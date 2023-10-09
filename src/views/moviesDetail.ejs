@@ -20,7 +20,7 @@
                 </li>
                 <li class="list-group-item list-group-item-action"><b>LENGTH:</b> <%= movie.length + ' min' %>
                 </li>
-                <li class="list-group-item list-group-item-action"><b>RELEASE DATE:</b> <%= movie.release_date %>
+                <li class="list-group-item list-group-item-action"><b>RELEASE DATE:</b> <%= moment(movie.release_date).format('DD/MM/YYYY')%>
                 </li>
                 <li class="list-group-item list-group-item-action">
                     <div class="moviesList_botones">

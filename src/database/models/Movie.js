@@ -43,6 +43,5 @@ module.exports = (sequelize, dataTypes) => {
             foreignKey: "genre_id"
         })
     }
-
     return Movie
 };

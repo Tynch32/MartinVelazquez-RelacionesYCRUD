@@ -10,34 +10,55 @@
     <h1 class="titulo">Película Editada:  <%= Movie.title %></h1>
     <section class="formulario">
         <form action="/movies/update/<%= Movie.id %>" method="POST">
-            <label for="title">Title </label>
-            <p><input type="text" name="title" id="" value="<%= Movie.title %>" required></p>
-            <label for="rating">Rating </label>
-            <p><input type="number" name="rating" id="" value="<%= Movie.rating %>" required></p>
-            <label for="awards">Awards </label>
-            <p><input type="number" name="awards" id="" value="<%= Movie.awards %>" required></p>
-            <label for="release_date">Release date </label>
-            <p><input type="date" name="release_date" id="" value="<%= Movie.release_date %> required"></p>
-            <label for="length">Length </label>
-            <p><input type="number" name="length" id="" value="<%= Movie.length %>" required></p>
-            <label for="genre_id">Genre </label>
-            <p>
-                <select name="genre_id" id="" required>
-                    <% allGenres.forEach(genre => { %>
-                    <option value="<%= genre.id %>" <% if (Movie.genre.id == genre.id) { %><%= 'selected' %><% }; %>><%= genre.name %></option>
-                    <% }); %>
-                </select>
-            </p>
-
-    <!--
-            <label for="genre_id">Genre ID </label>
-            <p><input type="number" name="genre_id" id="" value="<%= Movie.genre_id %>"></p>
-        -->
-            
-            <br>
-            <p> <button class="botonAgregar" type="submit">Actualizar</button>
-        
-            <a  class="botonVolver" href="/movies">Listado de Películas</a></p>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" value="<%= Movie.title %>" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="number" class="form-control" id="rating" name="rating" value="<%= Movie.rating %>" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="awards" class="form-label">Awards</label>
+                    <input type="number" class="form-control" id="awards" name="awards" value="<%= Movie.awards %>" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="release_date" class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="release_date" name="release_date" value="<%= Movie.release_date %>" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="length" class="form-label">Length</label>
+                    <input type="number" class="form-control" id="length" name="length" value="<%= Movie.length %>" required>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <label for="genre_select" class="form-label">Genre</label>
+                    <select id="genre_select" name="genre_id" class="form-select">
+                        <option value="" disabled selected>- select genre - </option>
+                        <% allGenres.forEach(genre=> { %>
+                            <option value="<%= genre.id %>">
+                                <%= genre.name %>
+                            </option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <br>
+                    <button type="reset" class="btn btn-primary">Reiniciar <i
+                            class="fa-solid fa-reply"></i></button>
+                    <button type="submit" class="btn btn-primary">Agregar <i class="fa-solid fa-film"></i></button>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-end align-items-end">
+                    <br>
+                    <a href="/movies">
+                        <button type="button" class="btn btn-secondary">
+                            Volver Al Listado De Películas
+                        </button>
+                    </a>
+                </div>
+            </div>
         </form>
     </section>
 </body>
