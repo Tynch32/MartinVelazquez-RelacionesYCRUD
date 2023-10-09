@@ -7,8 +7,17 @@
     right: 10px;
     z-index: 1000;
 }
+#movieList_listTitle{
+    font-size: medium;
+    font-weight: bold;
+}
 .moviesList_Items{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-size: medium;
+}
+.moviesList_Items i{
+    font-size: 20px;
+    color:rgb(76, 76, 76);
 }

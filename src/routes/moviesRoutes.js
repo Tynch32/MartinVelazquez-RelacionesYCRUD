@@ -10,8 +10,8 @@ router.get('/movies/detail/:id', detail);
 router.get('/movies/add', add);
 router.post('/movies/create', create);
 router.get('/movies/edit/:id', edit);
-router.post('/movies/update/:id', update);
+router.put('/movies/update/:id', update);
 router.get('/movies/delete/:id', remove);
-router.post('/movies/delete/:id', destroy);
+router.delete('/movies/delete/:id', destroy);
 
 module.exports = router;

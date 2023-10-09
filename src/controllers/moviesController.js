@@ -68,12 +68,18 @@ const moviesController = {
         const allGenres = db.Genre.findAll({
             order:["name"]
         });
-        const Movie = db.Movie.findByPk(req.params.id);
-
-        Promise.all([allGenres,Movie])
-            .then(([allGenres,Movie])=>{
-
-                return res.render('moviesEdit',{allGenres,Movie});
+        const Movie = db.Movie.findByPk(req.params.id,{
+            include: ['actors']
+        });
+        const actors = db.Actor.findAll({
+            order: [
+                ['first_name','ASC'],
+                ['last_name','ASC']
+            ]  
+        });
+        Promise.all([allGenres,Movie,actors])
+            .then(([allGenres,Movie,actors])=>{
+                return res.render('moviesEdit',{allGenres,Movie,moment,actors});
         })
         .catch(error=>console.log(error))
     },
@@ -84,7 +90,31 @@ const moviesController = {
 
     },
     destroy: function (req,res) {
-
+        db.Actor_Movie.destroy({
+            where:{
+                movie_id:req.params.id
+            }
+        }).then(()=>{
+            db.Actor.update(
+                {
+                    favorite_movie_id: null
+                },
+                {
+                    where:{
+                        favorite_movie_id :req.params.id
+                    }
+                })
+            .then(()=>{
+                    return res.redirect('/movies');
+            })
+        })
+        db.Movie.destroy({
+            where:{
+                id:req.params.id
+            }
+        }).then(()=>{
+            return res.send();
+        }).catch(error=>console.log(error));
     }
 }
 

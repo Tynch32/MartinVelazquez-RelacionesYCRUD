@@ -9,7 +9,7 @@
       </figure>
     <h1 class="titulo">Película Editada:  <%= Movie.title %></h1>
     <section class="formulario">
-        <form action="/movies/update/<%= Movie.id %>" method="POST">
+        <form action="/movies/update/<%= Movie.id %>?_method=PUT" method="POST">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <label for="title" class="form-label">Title</label>
@@ -32,24 +32,42 @@
                     <input type="number" class="form-control" id="length" name="length" value="<%= Movie.length %>" required>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <label for="genre_select" class="form-label">Genre</label>
-                    <select id="genre_select" name="genre_id" class="form-select">
+                    <label for="genre_id" class="form-label">Genre</label>
+                    <select id="genre_id" name="genre_id" class="form-select">
                         <option value="" disabled selected>- select genre - </option>
                         <% allGenres.forEach(genre=> { %>
-                            <option value="<%= genre.id %>">
+                            <option value="<%= genre.id %>"<%= genre.id == Movie.genre_id && 'selected'%>>
                                 <%= genre.name %>
                             </option>
                         <% }); %>
                     </select>
                 </div>
+                <div class="col-12">
+                    <br>
+                    <h5 class="form-label">Actores</h5>
+                    <div class="row">
+                        <% actors.forEach(actor=>{%>
+                            <div class="form-check col-lg-3 col-md-4 col-sm-6">
+                                <input class="form-check-input" type="checkbox" <%=Movie.actors.map(actor=>actor.id).includes(actor.id) && 'checked' %> value="<%= actor.id %>" id="actor<%=actor.id%>">
+                                <label class="form-check-label" for="actor<%= actor.id %>">
+                                  <%= actor.first_name%> <%= actor.last_name %>
+                                </label>
+                            </div>
+                        <%}) %>
+                    </div>
+                </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <br>
-                    <button type="reset" class="btn btn-primary">Reiniciar <i
-                            class="fa-solid fa-reply"></i></button>
-                    <button type="submit" class="btn btn-primary">Agregar <i class="fa-solid fa-film"></i></button>
+                    <button type="reset" class="btn btn-primary">Reiniciar Formulario</button>
+                    <button type="submit" class="btn btn-success">Guardar Cambios <i class="fa-solid fa-film"></i></button>
+                    <a href="/movies/detail/<%= Movie.id %>">
+                        <button type="button" class="btn btn-secondary">
+                            Volver Atras <i
+                            class="fa-solid fa-reply"></i>
+                        </button>
+                    </a>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12"></div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-end align-items-end">
                     <br>
                     <a href="/movies">
