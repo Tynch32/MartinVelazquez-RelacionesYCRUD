@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%-include('./partials/head.ejs',{viewTitle: "Listado de Películas"})%>
+<%-include('./partials/head.ejs',{viewTitle: "Listado de Películas" })%>
 
-<body>
-    <figure>
-        <img src="/img/logo-DH.png" alt="Logo Digital House">
-    </figure>
-    <h1>LISTADO DE PELÍCULAS</h1>
-    <br>
-    <p>
-        <a class="botonAgregar" href="/movies/add">Agregar una Pelicula</a>
-        <a class="botonVolver" href="/">inicio</a>
-
-    </p>
-    <br>
-    <ul>
-        <% for( let i = 0; i < movies.length; i++ ) { %>
-        <li>
-            <a href="/movies/detail/<%= movies[i].id %>"><%= movies[i].title %></a>
-        </li>
-        <% } %>
-
-    </ul>
-</body>
+    <body>
+        <figure>
+            <img src="/img/logo-DH.png" alt="Logo Digital House">
+        </figure>
+        <h1>LISTADO DE PELÍCULAS</h1>
+        <div class="moviesList_botones">
+            <a href="/movies/add">
+            <button type="button" class="btn btn-dark">
+                Agregar una Pelicula <i class="fa-solid fa-film"></i>
+            </button>
+            </a>
+            <a href="/">
+            <button type="button" class="btn btn-secondary">
+                Volver Al Inicio <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+            </a>
+        </div>
+        <div class="card">
+            <div class="card-header">
+              Listado De Películas
+            </div>          
+            <ul class="list-group list-group-flush">
+            <% for( let i=0; i < movies.length; i++ ) { %>
+                    <a href="/movies/detail/<%= movies[i].id %>" class="list-group-item list-group-item-action">
+                        <%= movies[i].title %>
+                    </a>
+            <% } %>
+            </ul>
+        </div>
+        <div class="button_go_toTop">
+            <a href="">
+                <button type="button" class="btn btn-secondary">
+                    Volver Arriba <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </a>
+        </div>
+    </body>
 
 </html>

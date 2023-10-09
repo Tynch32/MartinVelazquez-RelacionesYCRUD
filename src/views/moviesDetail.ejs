@@ -3,22 +3,36 @@
 
 <%-include('./partials/head.ejs',{viewTitle: movie.title})%>
 
-<body>
-    <figure>
-        <img src="/img/logo-DH.png" alt="Logo Digital House">
-    </figure>
-    <h1><%= movie.title %> </h1>    
-    <br>
-    <p>RATING: <%= movie.rating %> </p>
-    <p>AWARDS: <%= movie.awards %> </p>
-    <p>LENGTH: <%= movie.length + ' min'%> </p>
-    <p>RELEASE DATE: <%= movie.release_date %> </p>
-    <br>
-    <section>
-        <a href="/movies/edit/<%=movie.id%>"><button type="button" class="btn btn-success">Modificar <i class="fa-regular fa-pen-to-square"></i></button></a>
-        <a href="/movies/delete/<%=movie.id%>"><button type="button" class="btn btn-danger">Borrar <i class="fa-solid fa-trash-can"></i></button></a>
-        <a href="/movies"><button type="button" class="btn btn-secondary">Listado de películas <i class="fa-solid fa-film"></i></button></a>
-    </section>
-
-</body>
+    <body>
+        <figure>
+            <img src="/img/logo-DH.png" alt="Logo Digital House">
+        </figure>
+        <div class="card">
+            <div class="card-header">
+                <h3>
+                    <%= movie.title %>
+                </h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-action"><b>RATING:</b> <%= movie.rating %>
+                </li>
+                <li class="list-group-item list-group-item-action"><b>AWARDS:</b> <%= movie.awards %>
+                </li>
+                <li class="list-group-item list-group-item-action"><b>LENGTH:</b> <%= movie.length + ' min' %>
+                </li>
+                <li class="list-group-item list-group-item-action"><b>RELEASE DATE:</b> <%= movie.release_date %>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <div class="moviesList_botones">
+                        <a href="/movies/edit/<%=movie.id%>"><button type="button" class="btn btn-success">Modificar <i
+                                    class="fa-regular fa-pen-to-square"></i></button></a>
+                        <a href="/movies/delete/<%=movie.id%>"><button type="button" class="btn btn-danger">Borrar <i
+                                    class="fa-solid fa-trash-can"></i></button></a>
+                        <a href="/movies"><button type="button" class="btn btn-secondary">Listado de películas <i
+                                    class="fa-solid fa-film"></i></button></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
 </html>

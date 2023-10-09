@@ -1,0 +1,9 @@
+.moviesList_botones{
+    margin: 5px 0;
+}
+.button_go_toTop{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+}
