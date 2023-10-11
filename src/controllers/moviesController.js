@@ -4,6 +4,7 @@ const sequelize = db.sequelize;
 const { Op, DATE, DATEONLY } = require("sequelize");
 const { stringify } = require('querystring');
 const moment = require('moment');
+const Actor_Movie = require('../database/models/Actor_Movie');
 
 const moviesController = {
     list: (req, res) => {
@@ -14,8 +15,10 @@ const moviesController = {
     },
     detail: (req, res) => {
         db.Movie.findByPk(req.params.id)
-            .then(movie => {
-                res.render('moviesDetail.ejs', {movie, moment});
+            .then(movie => { 
+                db.Genre.findByPk(movie.genre_id).then(genre=>{
+                    return res.render('moviesDetail',{movie,genre,moment})
+                })
             });
     },
     new: (req, res) => {
@@ -68,7 +71,7 @@ const moviesController = {
         const allGenres = db.Genre.findAll({
             order:["name"]
         });
-        const Movie = db.Movie.findByPk(req.params.id,{
+        const movie = db.Movie.findByPk(req.params.id,{
             include: ['actors']
         });
         const actors = db.Actor.findAll({
@@ -77,24 +80,57 @@ const moviesController = {
                 ['last_name','ASC']
             ]  
         });
-        Promise.all([allGenres,Movie,actors])
-            .then(([allGenres,Movie,actors])=>{
-                return res.render('moviesEdit',{allGenres,Movie,moment,actors});
+        Promise.all([allGenres,movie,actors])
+            .then(([allGenres,movie,actors])=>{
+                return res.render('moviesEdit',{allGenres,movie,moment,actors});
         })
         .catch(error=>console.log(error))
     },
     update: function (req,res) {
+        let {title,awards,rating,length,release_date,genre_id,actors}=req.body;
+        
+        actors = typeof actors === "string" ? [actors] : actors;
 
-    },
-    delete: function (req,res) {
-
+        db.Movie.update({
+                    title: title.trim(),
+                    awards,
+                    rating,
+                    release_date,
+                    length,
+                    genre_id
+                },
+                {
+                    where: {
+                        id:req.params.id
+                    }
+                }).then(()=>{
+                    db.Actor_Movie.destroy({
+                        where: {
+                            movie_id : req.params.id
+                        }
+                    }).then(()=>{
+                        if(actors){
+                           const actorsDB = actors.map(actor=>{
+                            return {
+                                movie_id : req.params.id,
+                                actor_id : actor 
+                            }
+                            })
+                            db.Actor_Movie.bulkCreate(actorsDB,{
+                            validate : true
+                            }).then(()=> console.log("Actores agregados"))  
+                        }
+                    })
+                })
+                .catch(error=> console.log(error)).finally(()=>res.redirect('/movies'))
     },
     destroy: function (req,res) {
         db.Actor_Movie.destroy({
             where:{
                 movie_id:req.params.id
             }
-        }).then(()=>{
+        })
+        .then(()=>{
             db.Actor.update(
                 {
                     favorite_movie_id: null
@@ -105,15 +141,16 @@ const moviesController = {
                     }
                 })
             .then(()=>{
+                db.Movie.destroy({
+                    where:{
+                        id:req.params.id
+                    }
+                })
+                .then(()=>{
                     return res.redirect('/movies');
             })
         })
-        db.Movie.destroy({
-            where:{
-                id:req.params.id
-            }
-        }).then(()=>{
-            return res.send();
+        
         }).catch(error=>console.log(error));
     }
 }

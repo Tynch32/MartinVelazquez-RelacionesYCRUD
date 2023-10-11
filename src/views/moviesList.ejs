@@ -5,7 +5,7 @@
 
     <body>
         <figure>
-            <img src="/img/logo-DH.png" alt="Logo Digital House">
+            <a href="/"><img src="/img/logo-DH.png" alt="Logo Digital House"></a>
         </figure>
         <h1>LISTADO DE PELÍCULAS</h1>
         <div class="moviesList_botones">
@@ -22,7 +22,10 @@
         </div>
         <div class="card">
             <div id="movieList_listTitle" class="card-header">
-              Listado De Películas
+              <div class="moviesList_titulo_info">
+                <div>Listado De Películas</div>
+                <div>Información De La Película</div>
+              </div>
             </div>          
             <ul class="list-group list-group-flush">
             <% for( let i=0; i < movies.length; i++ ) { %>

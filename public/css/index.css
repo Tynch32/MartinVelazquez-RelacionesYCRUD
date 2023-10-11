@@ -1,5 +1,9 @@
 .moviesList_botones{
-    margin: 5px 0;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .button_go_toTop{
     position: fixed;
@@ -20,4 +24,9 @@
 .moviesList_Items i{
     font-size: 20px;
     color:rgb(76, 76, 76);
+}
+
+.moviesList_titulo_info{
+    display: flex;
+    justify-content: space-between;
 }

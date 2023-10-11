@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%-include('./partials/head.ejs',{viewTitle: movie.title})%>
+<%-include('./partials/head',{viewTitle: movie.title})%>
 
     <body>
         <figure>
-            <img src="/img/logo-DH.png" alt="Logo Digital House">
+            <a href="/"><img src="/img/logo-DH.png" alt="Logo Digital House"></a>
         </figure>
         <div class="card">
             <div class="card-header">
@@ -22,17 +22,24 @@
                 </li>
                 <li class="list-group-item list-group-item-action"><b>RELEASE DATE:</b> <%= moment(movie.release_date).format('DD/MM/YYYY')%>
                 </li>
-                <li class="list-group-item list-group-item-action">
-                    <div class="moviesList_botones">
-                        <a href="/movies/edit/<%=movie.id%>"><button type="button" class="btn btn-success">Modificar <i
-                                    class="fa-regular fa-pen-to-square"></i></button></a>
-                        <a href="/movies/delete/<%=movie.id%>"><button type="button" class="btn btn-danger">Borrar <i
-                                    class="fa-solid fa-trash-can"></i></button></a>
-                        <a href="/movies"><button type="button" class="btn btn-secondary">Listado de películas <i
-                                    class="fa-solid fa-film"></i></button></a>
-                    </div>
+                <li class="list-group-item list-group-item-action"><b>GENRE:</b> <%= genre?genre.name:"No tiene genero" %>
                 </li>
             </ul>
+        </div>
+        <div class="moviesList_botones">
+            <div>
+                <a href="/movies/edit/<%=movie.id%>"><button type="button" class="btn btn-success">Modificar <i
+                        class="fa-regular fa-pen-to-square"></i></button></a>
+            </div>
+            <div>
+                <a href="/movies"><button type="button" class="btn btn-secondary">Listado de películas <i
+                        class="fa-solid fa-film"></i></button></a>
+            </div>
+        </div>
+        <div>
+            <form action="/movies/delete/<%= movie.id %>?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-danger">Eliminar Pelicula !</button>
+            </form>      
         </div>
     </body>
 </html>
