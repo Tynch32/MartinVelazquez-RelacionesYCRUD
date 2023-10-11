@@ -8,14 +8,30 @@
         <a href="/"><img src="/img/logo-DH.png" alt="Logo Digital House"></a>
       </figure>
     <h1>LISTADO DE GENEROS</h1>
-    <ul>
-        <% for( let i = 0; i < genres.length; i++ ) { %>
-        <li>
-            <a href="/genres/detail/<%= genres[i].id %>"><%= genres[i].name %></a>
-        </li>
-        <% } %>
-
-    </ul>
+    <div class="card">
+        <div id="movieList_listTitle" class="card-header">
+          <div class="moviesList_titulo_info">
+            <div>Listado De Generos</div>
+          </div>
+        </div>          
+        <ul class="list-group list-group-flush">
+            <% for( let i = 0; i < genres.length; i++ ) { %>
+                <a href="/genres/detail/<%= genres[i].id %>" class="list-group-item list-group-item-action">
+                    <div class="moviesList_Items">
+                         <%= genres[i].name %>
+                    </div>
+                </a>
+            <% } %>
+    
+        </ul>
+    </div>
+    <br>
+    <a href="/">
+        <button type="button" class="btn btn-secondary">
+            Volver Al Inicio <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+        </a>
+    
 </body>
 
 </html>
